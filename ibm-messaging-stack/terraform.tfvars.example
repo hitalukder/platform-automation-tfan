@@ -1,0 +1,31 @@
+# terraform.tfvars.example
+# Copy this file to terraform.tfvars and fill in your values
+
+# IBM Cloud API Key (required)
+ibm_api_key = ""
+
+# Deployment Configuration
+region              = "us-south"
+resource_group_name = "resource-group"
+environment         = "dev"
+project_name        = "project_name"
+
+# Service Plans (standard or enterprise)
+redis_plan    = "standard"
+rabbitmq_plan = "standard"
+
+# Resource Allocation
+redis_memory_mb    = 4096  # 4GB
+redis_disk_mb      = 6144  # 6GB
+rabbitmq_memory_mb = 8192  # 8GB
+rabbitmq_disk_mb   = 6144  # 6GB
+
+# Network Security
+# Replace with your specific IP ranges for better security
+allowed_ip_ranges = [
+  "0.0.0.0/0"  # WARNING: This allows all IPs. Restrict in production!
+  # Examples:
+  # "10.0.0.0/8",      # Private network
+  # "192.168.1.0/24",  # Local subnet
+  # "203.0.113.0/24"   # Your office IP range
+]
