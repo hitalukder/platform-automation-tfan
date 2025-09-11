@@ -1,0 +1,13 @@
+# Backend configuration for IBM Cloud Object Storage
+# Use this file with: terraform init -backend-config=backend.tfbackend
+
+bucket                      = "my-terraform-state-bucket"
+key                         = "terraform/terraform.tfstate"
+region                      = "us-south"
+endpoint                    = "https://s3.us-south.cloud-object-storage.appdomain.cloud"
+access_key                  = "your-cos-access-key"
+secret_key                  = "your-cos-secret-key"
+skip_region_validation     = true
+skip_credentials_validation = true
+skip_metadata_api_check    = true
+force_path_style           = true

@@ -1,0 +1,58 @@
+# IBM Cloud Configuration
+ibmcloud_api_key      = "your-ibm-cloud-api-key-here"
+region               = "us-south"
+resource_group_name  = "resource_group_name  = "default""
+
+# Code Engine Project
+project_name = "unspsc-ps-monitoring-project"
+tags         = ["terraform", "flower", "celery", "monitoring", "code-engine"]
+
+# Flower Application Configuration
+app_name        = "flower-monitoring-project"
+
+container_registry_namespace = "ibm-container-registry-namespace"
+image_name    = "your-custom-image-name"
+image_tag     = "v1"
+app_port      = 5555  # Flower default port
+
+# Scaling Configuration for Flower
+scale_min_instances     = 1      # Keep running for monitoring
+scale_max_instances     = 3      # Flower doesn't need heavy scaling
+scale_initial_instances = 1
+scale_cpu_limit         = "1"    # Moderate CPU for monitoring, 500m is too low
+scale_memory_limit     = "4G"     # Sufficient memory for Flower
+
+# Environment Variables for Flower
+environment_variables = [
+  {
+    type  = "literal"
+    name  = "CELERY_BROKER_URL"
+    value = "amqp://guest:guest@your-rabbitmq-host:5672//"  # Update with your RabbitMQ host
+  },
+  {
+    type  = "literal"
+    name  = "FLOWER_PORT"
+    value = "5555"
+  },
+  {
+    type  = "literal"
+    name  = "FLOWER_UNAUTHENTICATED_API"
+    value = "true"
+  },
+  {
+    type  = "literal"
+    name  = "CELERY_RESULT_BACKEND"
+    value = "rpc://"
+  },
+  {
+    type  = "literal"
+    name  = "FLOWER_BASIC_AUTH"
+    value = "admin:admin"  # Change this in production
+  },
+  {
+    type  = "literal"
+    name  = "CELERY_RESULT_BACKEND"
+    value = "rpc://"
+  }
+]
+
