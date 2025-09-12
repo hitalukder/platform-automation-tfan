@@ -61,8 +61,8 @@ resource "ibm_code_engine_app" "serverless_app" {
 
   # Runtime configuration
   run_service_account = "default"
-  run_commands        = var.run_commands
-  run_arguments       = var.run_arguments
+  #run_commands        = var.run_commands
+  #run_arguments       = var.run_arguments
   
   # Environment variables
   dynamic "run_env_variables" {

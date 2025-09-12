@@ -106,17 +106,17 @@ variable "scale_memory_limit" {
 }
 
 # Runtime Configuration
-variable "run_commands" {
-  description = "Commands to run in the container"
-  type        = list(string)
-  default     = ["celery"]
-}
+# variable "run_commands" {
+#  description = "Commands to run in the container"
+#  type        = list(string)
+#  default     = ["celery"]
+#}
 
-variable "run_arguments" {
-  description = "Arguments to pass to the run commands"
-  type        = list(string)
-  default     = ["--broker=$(CELERY_BROKER_URL)", "flower", "--port=5555", "--basic_auth=$(FLOWER_BASIC_AUTH)"]
-}
+#variable "run_arguments" {
+#  description = "Arguments to pass to the run commands"
+#  type        = list(string)
+#  default     = ["--broker=$(CELERY_BROKER_URL)", "flower", "--port=5555", "--basic_auth=$(FLOWER_BASIC_AUTH)"]
+# }
 
 # Environment Variables
 variable "environment_variables" {
