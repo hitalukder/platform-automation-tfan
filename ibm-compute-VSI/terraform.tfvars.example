@@ -1,0 +1,35 @@
+# IBM Cloud API Key
+ibmcloud_api_key = "your-ibm-cloud-api-key-here"
+
+# Existing Resource Group Name
+resource_group_name = "your-existing-resource-group-name"
+
+# Existing VPC and Subnet Names
+vpc_name = "cs-dev-workload-vpc"
+subnet_name = "your-existing-subnet-name"
+
+# Availability Zone
+availability_zone = "us-south-2"
+
+# Existing SSH Key Name (must exist in IBM Cloud)
+ssh_key_name = "your-existing-ssh-key-name"
+
+# Instance Configuration
+instance_name = "my-centos-server"
+
+# Data Volume Configuration
+volume_capacity = 100
+volume_profile = "general-purpose"
+data_mount_point = "/data"
+
+# Network Configuration
+create_floating_ip = true
+
+# Tags
+tags = [
+  "terraform",
+  "centos-stream-9",
+  "dallas",
+  "development",
+  "my-project"
+]
