@@ -65,3 +65,8 @@ variable "tags" {
   type        = list(string)
   default     = []
 }
+
+variable "my_public_ip" {
+  description = "Your public IP address for SSH access"
+  type        = string
+}

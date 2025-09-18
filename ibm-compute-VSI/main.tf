@@ -43,11 +43,18 @@ data "ibm_is_security_group" "existing_sg" {
 resource "ibm_is_security_group_rule" "ssh" {
   group     = data.ibm_is_security_group.existing_sg.id
   direction = "inbound"
-  remote    = "0.0.0.0/0"
+  remote    = "${var.my_public_ip}/32"
   tcp {
     port_min = 22
     port_max = 22
   }
+}
+
+resource "ibm_is_security_group_rule" "all_outbound" {
+  group      = ibm_is_security_group.existing_sg.id
+  direction  = "outbound"
+  remote     = "0.0.0.0/0"
+  ip_version = "ipv4"
 }
 
 # Create VSI
