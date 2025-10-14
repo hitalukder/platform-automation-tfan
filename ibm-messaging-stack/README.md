@@ -34,9 +34,8 @@ This Terraform configuration provisions a Redis database and RabbitMQ messaging 
 
 ```bash
 # Clone or download the Terraform files
-mkdir ibm-messaging-stack
-cd ibm-messaging-stack
-# Copy all .tf files into this directory
+git clone git@github.com:hitalukder/platform-automation-tfan.git
+cd platform-automation-tfan/ibm-messaging-stack
 ```
 
 ### 2. Configure Variables
@@ -106,15 +105,6 @@ allowed_ip_ranges = [
   "10.0.0.0/8",        # Private networks
   "203.0.113.0/24"     # Your office IP range
 ]
-```
-
-**Enable VPC (Enhanced Security):**
-
-1. Uncomment the VPC resources in `networking.tf`
-2. Add to your `terraform.tfvars`:
-
-```hcl
-enable_vpc = true
 ```
 
 ## Service Access
@@ -221,6 +211,16 @@ terraform refresh
 # Force recreation (if needed)
 terraform taint ibm_database.redis
 terraform apply
+
+# Apply specific resources
+terraform apply -target=ibm_database.rabbitmq
+
+
+# Destroy resources
+terraform destroy
+
+# Destroy specific resource, eg: redis
+terraform destroy -target=ibm_database.redis
 ```
 
 ## Security Best Practices
