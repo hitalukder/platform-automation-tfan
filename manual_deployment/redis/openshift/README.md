@@ -248,4 +248,9 @@ oc get secret redis-password  -o jsonpath='{.data.password}' | base64 -d
 
 Create connection:
 
+- host: redis-service
+- user: default
+- password: `run the command below to get password`
+
 ![redis connection](redis_connection.png)
+
