@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  redis:
+    build: .
+    # Or use the official image directly:
+    # image: redis:7-alpine
+    container_name: redis-server
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    environment:
+      - REDIS_PASSWORD=redpassword
+    command: >
+      sh -c "redis-server 
+      --appendonly yes 
+      --requirepass $$REDIS_PASSWORD"
+    restart: unless-stopped
+    networks:
+      - redis-network
+
+  redisinsight:
+    image: redis/redisinsight:latest
+    container_name: redisinsight
+    ports:
+      - "5540:5540"
+    volumes:
+      - redisinsight-data:/data
+    restart: unless-stopped
+    networks:
+      - redis-network
+    depends_on:
+      - redis
+
+volumes:
+  redis-data:
+    driver: local
+  redisinsight-data:
+    driver: local
+
+networks:
+  redis-network:
+    driver: bridge
