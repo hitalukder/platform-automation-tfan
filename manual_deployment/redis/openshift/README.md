@@ -51,7 +51,7 @@ oc create secret generic redis-password -n redis-db \
 --from-literal=password=yourStrongPassword123
 ```
 
-## Create deployment
+## 2 - Create deployment
 
 Redis reployment
 
@@ -167,7 +167,7 @@ spec:
 EOF
 ```
 
-## Create services to expose redis and redis insight.
+## 3 - Create services to expose redis and redis insight.
 
 ```yaml
 cat <<EOF | oc apply -f -
@@ -211,7 +211,7 @@ spec:
 EOF
 ```
 
-## Expose redis insight browser using routes
+## 4 - Expose redis insight browser using routes
 
 ```yaml
 cat <<EOF | oc apply -f -
@@ -232,7 +232,7 @@ spec:
 EOF
 ```
 
-## Test
+## 5 - Test
 
 Get the route:
 
