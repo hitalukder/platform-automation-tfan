@@ -22,9 +22,9 @@ variable "cluster_name" {
 }
 
 variable "ocp_version" {
-  description = "OpenShift version (e.g. 4.15_openshift)"
+  description = "OpenShift version (e.g. 4.16_openshift). Run 'ibmcloud ks versions' to list available versions."
   type        = string
-  default     = "4.15_openshift"
+  default     = "4.16_openshift"
 }
 
 variable "worker_pool_flavor" {
@@ -44,8 +44,6 @@ variable "worker_count" {
   }
 }
 
-
-
 variable "worker_zones" {
   description = "List of zones for worker nodes"
   type        = list(string)
@@ -53,11 +51,22 @@ variable "worker_zones" {
 }
 
 variable "ocp_entitlement" {
-  description = "OpenShift entitlement (set to 'cloud_pak' if using a Cloud Pak entitlement)"
+  description = "OpenShift entitlement. Set to 'cloud_pak' only if you have an active Cloud Pak license. Leave empty otherwise."
   type        = string
-  default     = "cloud_pak"
+  default     = ""
 }
 
+variable "disable_public_service_endpoint" {
+  description = "Set to true to disable the public Kubernetes API endpoint (private-only access)"
+  type        = bool
+  default     = false
+}
+
+variable "allowed_inbound_cidr" {
+  description = "CIDR block allowed for inbound HTTP/HTTPS traffic. Use '0.0.0.0/0' for public access or restrict to your network."
+  type        = string
+  default     = "0.0.0.0/0"
+}
 
 variable "environment" {
   description = "Environment name (e.g., dev, staging, prod)"

@@ -92,7 +92,7 @@ resource "ibm_is_security_group" "openshift_sg" {
 resource "ibm_is_security_group_rule" "allow_https_inbound" {
   group     = ibm_is_security_group.openshift_sg.id
   direction = "inbound"
-  remote    = "0.0.0.0/0"
+  remote    = var.allowed_inbound_cidr
   protocol  = "tcp"
   port_min  = 443
   port_max  = 443
@@ -102,7 +102,7 @@ resource "ibm_is_security_group_rule" "allow_https_inbound" {
 resource "ibm_is_security_group_rule" "allow_http_inbound" {
   group     = ibm_is_security_group.openshift_sg.id
   direction = "inbound"
-  remote    = "0.0.0.0/0"
+  remote    = var.allowed_inbound_cidr
   protocol  = "tcp"
   port_min  = 80
   port_max  = 80
@@ -145,8 +145,13 @@ resource "ibm_container_vpc_cluster" "openshift" {
   worker_count      = var.worker_count
   resource_group_id = data.ibm_resource_group.group.id
   cos_instance_crn  = ibm_resource_instance.cos.crn
-  entitlement       = var.ocp_entitlement
+  entitlement       = var.ocp_entitlement != "" ? var.ocp_entitlement : null
+  wait_till         = "IngressReady"
   tags              = local.common_tags
+
+  disable_public_service_endpoint = var.disable_public_service_endpoint
+
+  security_groups = [ibm_is_security_group.openshift_sg.id]
 
   dynamic "zones" {
     for_each = ibm_is_subnet.subnets
@@ -160,4 +165,5 @@ resource "ibm_container_vpc_cluster" "openshift" {
     create = "90m"
     delete = "45m"
   }
+
 }
